@@ -7,16 +7,22 @@ Tessara was created to solve the problem of manual consolidation of feedback fro
 # How to use Tessara?
 1. Add @tessara_bot to group.
 2. Use provided commands:
-- /start_test - start a new session. E.g. `/start_test (Google Sheets link)`. This is to inform Tessara of where data should flow to. Note that you may need to allow Tessara access to Google Sheets first.
-- /report - report an issue. E.g. `/report can't click button #ios`. Can be used with images, documents and video as caption.
-- /end_test - end current session.
+- **/start_test**
+
+  start a new session. E.g. `/start_test (Google Sheets link)`. This is to inform Tessara of where data should flow to. Note that you may need to allow Tessara access to Google Sheets first.
+- **/report**
+
+  report an issue. E.g. `/report can't click button #ios`. Can be used with images, documents and video as caption.
+- **/end_test**
+
+  end current session.
 
 ![alt text](https://github.com/Milleus/tessara/blob/master/docs/telegram-chat.png "Telegram Chat")
 ![alt text](https://github.com/Milleus/tessara/blob/master/docs/google-sheets.png "Google Sheets")
 
 # Additional information
 - Telegram bot to Google Apps Script web app is using webhook instead of long polling.
-- Test sessions are cached for a maximum of 6 hours using [Google CacheService](https://developers.google.com/apps-script/reference/cache/cache-service).
+- Test sessions are cached for a maximum of 6 hours using Google CacheService.
 - File links stored in Google Sheets are valid for at least 1 hour, see `File` in [Telegram Bot API](https://core.telegram.org/bots/api).
 
 # Tessara Setup (for own reference)
@@ -28,3 +34,9 @@ Tessara was created to solve the problem of manual consolidation of feedback fro
 6. Check that API token is correct through Google Apps Script interface, `Run` > `Run Function` > `getMe`, and then view logs through `View` > `Logs`. You should see a JSON response with your bot details.
 7. Set up webhook to your bot through Google Apps Script interface, `Run` > `Run Function` > `setWebhook`, and then view logs through `View` > `Logs`. You should see a JSON response that webhook has been set.
 8. Re-deploy web app on Google Apps Script interface, `Publish` > `Deploy as web app...` > `Project version` > `New`. Note that you have to select a new version to deploy otherwise web app will not update.
+
+# Resources
+- [Google Apps Script](https://developers.google.com/apps-script/)
+- [Google CacheService](https://developers.google.com/apps-script/reference/cache/cache-service)
+- [Google Sheets](https://www.google.com/sheets/about/)
+- [Telegram Bot API](https://core.telegram.org/bots/api)
