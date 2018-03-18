@@ -7,12 +7,12 @@ Tessara was created to solve the problem of manual consolidation of feedback fro
 # How to use Tessara?
 1. Add @tessara_bot to group.
 2. Use provided commands:
-- /start_test - start a new session. E.g. "/start_test (google spreadsheet link)". This is to inform Tessara of where data should flow to. Note that you may need to allow Tessara access to Google spreadsheet first.
-- /report - report an issue. E.g. "/report can't click button #ios". Can be used with images, documents and video as caption.
+- /start_test - start a new session. E.g. `/start_test (google spreadsheet link)`. This is to inform Tessara of where data should flow to. Note that you may need to allow Tessara access to Google spreadsheet first.
+- /report - report an issue. E.g. `/report can't click button #ios`. Can be used with images, documents and video as caption.
 - /end_test - end current session.
 
-![alt text](/docs/telegram-chat "Telegram Chat")
-![alt text](/docs/google-spreadsheet "Google Spreadsheet")
+![alt text](https://github.com/Milleus/tessara/blob/master/docs/telegram-chat.png "Telegram Chat")
+![alt text](https://github.com/Milleus/tessara/blob/master/docs/google-spreadsheet.png "Google Spreadsheet")
 
 # Additional information
 - Telegram bot to Google App Script web app is using webhook instead of long polling.
