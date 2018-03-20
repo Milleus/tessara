@@ -35,8 +35,7 @@ Once you have proper access, add your bot to the group and use the provided comm
 
   End current session.
 
-![Telegram Chat](https://github.com/Milleus/tessara/blob/master/docs/telegram-chat.png "Telegram Chat")
-![Google Sheets](https://github.com/Milleus/tessara/blob/master/docs/google-sheets.png "Google Sheets")
+![Tessara Demo](https://github.com/Milleus/tessara/blob/master/docs/tessara-demo.png "Tessara Demo")
 
 # Additional information
 - Telegram bot to Google Apps Script web app is using webhook instead of long polling.
