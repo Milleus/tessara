@@ -5,7 +5,9 @@ Tessara consolidates feedback from Telegram and store in Google Sheets. This uti
 Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main medium used for feedback submission was through Telegram, now Tessara automates that process.
 
 # How to use Tessara?
-As of now, there is no easy way to share this script without you giving me access to your spreadsheets. Therefore, the best option is to set it up yourself with your own bot, preferrably on a company Google Drive account where employees have access to. This way, even if spreadsheets are created by employees on the company Google Drive, the bot can always access them.
+Currently, **Tessara only works for spreadsheets that GovTech DCUBE Google account** have edit permissions to.
+
+Since there is no easy way to share this script without you giving me access to your spreadsheets, the best option is to set it up yourself with your own bot, preferrably on a company Google Drive account where employees have access to. This way, even if spreadsheets are created by employees on the company Google Drive, the bot can always access them.
 
 Setting up with own bot:
   1. Create a Telegram bot through @BotFather.
