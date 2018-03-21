@@ -2,7 +2,7 @@
 Tessara consolidates feedback from Telegram and store in Google Sheets. This utilizes Google Apps Script for web app hosting and Google CacheService for session management.
 
 # Why Tessara was created?
-Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main medium used for feedback submission was through Telegram, now Tessara automates that process.
+Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main media used for feedback submission was through Telegram, now Tessara automates that process.
 
 # How to use Tessara?
 Currently, **Tessara only works for spreadsheets that GovTech DCUBE Google account** have edit permissions to.
