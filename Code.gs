@@ -26,41 +26,60 @@ function doPost(e) {
   var name = data.message.from.first_name;
   var username = data.message.from.username;
   var ssid = CACHE.get(chatId);
-  
-  if (/^\/start_test\s/.test(text) && ssid == null) {
-    var content = text.substr('/start_test'.length);
-    var regexSsid = content.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-    var reply = '@' + username + ' invalid google spreadsheet URL.';
     
-    if (regexSsid != null && regexSsid.length == 2) {
-      CACHE.put(chatId, regexSsid[1]);
-      reply = '@' + username + ' tessara has started.';
+  var startCommand = '/start_test';
+  if (regex(startCommand, '(\\s|$)').test(text)) {
+    if (ssid == null) {
+      var content = text.substr(startCommand.length);
+      var givenSsid = content.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+      var replyMsg = 'Invalid spreadsheet URL provided, please try again.';
+      
+      if (givenSsid != null) {
+        CACHE.put(chatId, givenSsid[1], 21600);
+        replyMsg = 'Tessara session has started.';
+      }
+      sendText(chatId, replyMsg);
+    } else {
+      sendText(chatId, 'Tessara session is in progress, use /end_test to end current session.');
     }
-
-    sendText(chatId, reply);
   }
 
-  if (/^\/report\s/.test(text) && ssid != null) {
-    var entities = data.message.entities || data.message.caption_entities;
-    var files = data.message.photo || data.message.document || data.message.video;
-    var content = text.substr('/report'.length);
-    var hashtags = entities.length > 1 ? getHashtags(text, entities) : '';
-    var fileUrl = files ? getFileUrl(files) : '';
-    
-    SpreadsheetApp.openById(ssid).getSheets()[0].appendRow([new Date(), name, username, content, hashtags, fileUrl]);
-    var reply = '@' + username + ' your comments have been added.';
-    sendText(chatId, reply);
+  var reportCommand = '/report';
+  if (regex(reportCommand, '(\\s|$)').test(text)) {
+    if (ssid != null) {
+      var entities = data.message.entities || data.message.caption_entities;
+      var files = data.message.photo || data.message.document || data.message.video;
+      var content = text.substr(reportCommand.length);
+      
+      if (files || content) {
+        var hashtags = entities.length > 1 ? getHashtags(text, entities) : '';
+        var fileUrl = files ? getFileUrl(files) : '';
+        
+        SpreadsheetApp.openById(ssid).getSheets()[0].appendRow([new Date(), name, username, content, hashtags, fileUrl]);
+        sendText(chatId, '@' + username + ' comments have been added.');
+      }
+      else {
+        sendText(chatId, '@' + username + ' please include content.');
+      }
+    }
+    else {
+      sendText(chatId, 'There is no tessara session in progress, use /start_test followed by spreadsheet URL to start new session.');
+    }
   }
   
-  if (/^\/end_test$/.test(text) && ssid != null) {
-    CACHE.remove(chatId);
-    var reply = '@' + username + ' tessara has ended.';
-    sendText(chatId, reply);
+  var endCommand ='/end_test'
+  if (regex(endCommand, '$').test(text)) {
+    if (ssid != null) {
+      CACHE.remove(chatId);
+      sendText(chatId, 'Tessara session has ended.');
+    } else {
+      sendText(chatId, 'There is no tessara session in progress, use /start_test followed by spreadsheet URL to start new session.');
+    }
   }
 }
 
-function regex(command) {
-  return new RegExp('^' + command + '\\s', 'i');
+function regex(command, endParams) {
+  return new RegExp('^' + command + '(' + endParams + '|@tessara_bot' + endParams + ')' , 'i');
 }
 
 function getHashtags(text, entities) {
