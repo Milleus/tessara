@@ -7,7 +7,7 @@ Tessara was created to solve the problem of manual consolidation of feedback fro
 # How to use Tessara?
 **_Currently, Tessara only works for spreadsheets accessible (edit permissions) by GovTech DCUBE Google account._**
 
-This is because the web app requests has to be executed by the Google account that host it (setting the web app to be executable by everyone prevents requests from Telegram, see Google App Script definition of 'Anyone' and 'Anyone, even anonymous'). Unless you are willing to give GovTech DCUBE Google account access to your spreadsheets, the best option is to set up another bot yourself.
+This is because the web app requests has to be executed by the Google account that host it (setting the web app to be executable by everyone prevents requests from Telegram, see [Google Apps Script definition of 'Anyone' and 'Anyone, even anonymous'](https://developers.google.com/apps-script/guides/web)). Unless you are willing to give GovTech DCUBE Google account access to your spreadsheets, the best option is to set up another bot yourself.
 
 Setting up with own bot:
   1. Create a Telegram bot through @BotFather.
