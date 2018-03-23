@@ -26,7 +26,7 @@ function doPost(e) {
   var name = data.message.from.first_name;
   var username = data.message.from.username;
   var ssid = CACHE.get(chatId);
-    
+
   var startCommand = '/start_test';
   if (regex(startCommand, '(\\s|$)').test(text)) {
     if (ssid == null) {
@@ -57,19 +57,18 @@ function doPost(e) {
         
         SpreadsheetApp.openById(ssid).getSheets()[0].appendRow([new Date(), name, username, content, hashtags, fileUrl]);
         sendText(chatId, '@' + username + ' comments have been added.');
-      }
-      else {
+      } else {
         sendText(chatId, '@' + username + ' please include content.');
       }
-    }
-    else {
+    } else {
       sendText(chatId, 'There is no tessara session in progress, use /start_test followed by spreadsheet URL to start new session.');
     }
   }
   
-  var endCommand ='/end_test'
+  var endCommand ='/end_test'  
   if (regex(endCommand, '$').test(text)) {
     if (ssid != null) {
+      addStatistics(ssid);
       CACHE.remove(chatId);
       sendText(chatId, 'Tessara session has ended.');
     } else {
@@ -104,4 +103,19 @@ function sendText(chatId, text) {
   var url = TELEGRAM_URL + '/sendMessage?chat_id=' + chatId + '&text=' + text;
   var response = UrlFetchApp.fetch(url);
   Logger.log(response.getContentText());
+}
+
+function addStatistics(ssid) {
+  var sheetName = 'Satistics - ' + new Date();
+  SpreadsheetApp.openById(ssid).insertSheet(sheetName).appendRow(['No. of participants', '=COUNTUNIQUE(Sheet1!B:B)']);
+  
+  var getSheet = SpreadsheetApp.openById(ssid).getSheetByName(sheetName);
+  getSheet.appendRow(['No. of reports','=COUNTIF(Sheet1!A:A,"<>")']);
+  getSheet.appendRow([' ']);
+  getSheet.appendRow(['Participant', 'No. of reports']);
+  getSheet.appendRow(['=UNIQUE(Sheet1!B:B)']);
+  
+  var numOfParticipants = getSheet.getRange('B1').getValue() + 4;
+  var range = 'B5:B' + numOfParticipants;
+  getSheet.getRange(range).setValue('=COUNTIF(Sheet1!B:B,A5)');
 }

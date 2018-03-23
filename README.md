@@ -35,7 +35,7 @@ Once you have proper access, add your bot to the group and use the provided comm
   
 - **/end_test**
 
-  End current session.
+  End current session. An additional sheet will be created with statistics such as no. of participants, no. of reports, and individual participants and reports.
 
 ![Tessara Demo](https://github.com/Milleus/tessara/blob/master/docs/tessara.gif "Tessara Demo")
 
