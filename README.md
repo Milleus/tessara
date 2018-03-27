@@ -1,6 +1,8 @@
 # Tessara
 Tessara consolidates feedback from Telegram chat and store in Google Sheets. This utilizes Google Apps Script for web app hosting and Google CacheService for session management.
 
+![Tessara Demo](https://github.com/Milleus/tessara/blob/master/docs/tessara.gif "Tessara Demo")
+
 # Why Tessara was created?
 Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main media used for feedback submission was through Telegram, now Tessara automates that process.
 
@@ -38,8 +40,6 @@ Once you have proper access, add your bot to the group and use the provided comm
 
   End the current test session. An additional sheet will be created with statistics such as no. of participants, no. of reports, and individual participants and reports. Command example:
   - `/end_test`
-
-![Tessara Demo](https://github.com/Milleus/tessara/blob/master/docs/tessara.gif "Tessara Demo")
 
 # Additional information
 - Telegram bot to Google Apps Script web app is using webhook instead of long polling.
