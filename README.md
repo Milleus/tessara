@@ -1,5 +1,5 @@
 # Tessara
-Tessara consolidates feedback from Telegram and store in Google Sheets. This utilizes Google Apps Script for web app hosting and Google CacheService for session management.
+Tessara consolidates feedback from Telegram chat and store in Google Sheets. This utilizes Google Apps Script for web app hosting and Google CacheService for session management.
 
 # Why Tessara was created?
 Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main media used for feedback submission was through Telegram, now Tessara automates that process.
@@ -24,18 +24,20 @@ Setting up with own bot:
 Once you have proper access, add your bot to the group and use the provided commands:
 - **/start_test (Google Sheets link)**
 
-  Start a new session with Google Sheets link to inform your bot of where data should flow to.
-  For example, `/start_test https://docs.google.com/spreadsheets/d/GOOGLE-SHEETS-ID/edit#gid=0`.
+  Start a new test session with Google Sheets link to inform your bot of where data should flow to. Command example:
+  - `/start_test https://docs.google.com/spreadsheets/d/GOOGLE-SHEETS-ID/edit#gid=0`
   
 - **/report (issue with optional hashtags)**
   
-  Report an issue, can be used with hashtags for categorizing in Google Sheets.
-  For example, `/report can't click button #ios #mobile`.
-  Can also be used with images, documents and video if placed in caption.
+  Report an issue (with optional hashtag, with optional files if used in file caption). Hashtags can be used for categorizing in Google Sheets. Files uploaded will generate file downloadable links in Google Sheets. Command example:
+  - `/report font size is too small`
+  - `/report can't click button on #ios #mobile`
+  - in caption of media uploaded, `/report image is blurry on #android #mobile`
   
 - **/end_test**
 
-  End current session. An additional sheet will be created with statistics such as no. of participants, no. of reports, and individual participants and reports.
+  End the current test session. An additional sheet will be created with statistics such as no. of participants, no. of reports, and individual participants and reports. Command example:
+  - `/end_test`
 
 ![Tessara Demo](https://github.com/Milleus/tessara/blob/master/docs/tessara.gif "Tessara Demo")
 

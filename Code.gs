@@ -27,62 +27,63 @@ function doPost(e) {
   var username = data.message.from.username;
   var ssid = CACHE.get(chatId);
 
-  var startCommand = '/start_test';
-  if (regex(startCommand, '(\\s|$)').test(text)) {
+  var startTest = '/start_test';
+  if (hasCommand(startTest, text)) {
     if (ssid == null) {
-      var content = text.substr(startCommand.length);
+      var content = text.split(' ').slice(1).join(' ');
       var givenSsid = content.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
-      var replyMsg = 'Invalid spreadsheet URL provided, please try again.';
-      
+      var replyMsg = 'Invalid spreadsheet URL provided.';
+
       if (givenSsid != null) {
         CACHE.put(chatId, givenSsid[1], 21600);
         replyMsg = 'Tessara session has started.';
       }
       sendText(chatId, replyMsg);
     } else {
-      sendText(chatId, 'Tessara session is in progress, use /end_test to end current session.');
+      sendText(chatId, 'Tessara session is in progress.');
     }
   }
 
-  var reportCommand = '/report';
-  if (regex(reportCommand, '(\\s|$)').test(text)) {
+  var report = '/report';
+  if (hasCommand(report, text)) {
     if (ssid != null) {
       var entities = data.message.entities || data.message.caption_entities;
       var files = data.message.photo || data.message.document || data.message.video;
-      var content = text.substr(reportCommand.length);
-      
+      var content = text.split(' ').slice(1).join(' ');
+
       if (files || content) {
         var hashtags = entities.length > 1 ? getHashtags(text, entities) : '';
         var fileUrl = files ? getFileUrl(files) : '';
-        
+
         SpreadsheetApp.openById(ssid).getSheets()[0].appendRow([new Date(), name, username, content, hashtags, fileUrl]);
         sendText(chatId, '@' + username + ' comments have been added.');
       } else {
-        sendText(chatId, '@' + username + ' please include content.');
+        sendText(chatId, '@' + username + ' content is missing.');
       }
     } else {
-      sendText(chatId, 'There is no tessara session in progress, use /start_test followed by spreadsheet URL to start new session.');
+      sendText(chatId, 'No tessara session in progress.');
     }
   }
-  
-  var endCommand ='/end_test'  
-  if (regex(endCommand, '$').test(text)) {
+
+  var endTest = '/end_test'
+  if (hasCommand(endTest, text)) {
     if (ssid != null) {
       addStatistics(ssid);
       CACHE.remove(chatId);
       sendText(chatId, 'Tessara session has ended.');
     } else {
-      sendText(chatId, 'There is no tessara session in progress, use /start_test followed by spreadsheet URL to start new session.');
+      sendText(chatId, 'No tessara session in progress.');
     }
   }
 }
 
-function regex(command, endParams) {
-  return new RegExp('^' + command + '(' + endParams + '|@tessara_bot' + endParams + ')' , 'i');
+function hasCommand(command, text) {
+  var commandAlt = command + '@tessara_bot';
+  return text.substr(0, command.length) == command || text.substr(0, commandAlt.length) == commandAlt;
 }
 
 function getHashtags(text, entities) {
-  var hashtags = entities.reduce(function(filtered, entity) {
+  var hashtags = entities.reduce(function (filtered, entity) {
     if (entity.type == 'hashtag') {
       filtered.push(text.substr(entity.offset, entity.length));
     }
@@ -108,13 +109,13 @@ function sendText(chatId, text) {
 function addStatistics(ssid) {
   var sheetName = 'Satistics - ' + new Date();
   SpreadsheetApp.openById(ssid).insertSheet(sheetName).appendRow(['No. of participants', '=COUNTUNIQUE(Sheet1!B:B)']);
-  
+
   var getSheet = SpreadsheetApp.openById(ssid).getSheetByName(sheetName);
-  getSheet.appendRow(['No. of reports','=COUNTIF(Sheet1!A:A,"<>")']);
+  getSheet.appendRow(['No. of reports', '=COUNTIF(Sheet1!A:A,"<>")']);
   getSheet.appendRow([' ']);
   getSheet.appendRow(['Participant', 'No. of reports']);
   getSheet.appendRow(['=UNIQUE(Sheet1!B:B)']);
-  
+
   var numOfParticipants = getSheet.getRange('B1').getValue() + 4;
   var range = 'B5:B' + numOfParticipants;
   getSheet.getRange(range).setValue('=COUNTIF(Sheet1!B:B,A5)');
