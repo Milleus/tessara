@@ -2,7 +2,7 @@
 
 Tessara records Telegram chat messages and store in Google Sheets. This utilizes Google Apps Script for web app hosting and Google CacheService for session management.
 
-![Tessara Demo](./docs/tessara.gif "Tessara Demo")
+![Tessara Demo](./docs/1024-tessara.gif "Tessara Demo")
 
 ## Use Case
 
