@@ -4,9 +4,7 @@ Tessara records Telegram chat messages and store in Google Sheets. This utilizes
 
 ![Tessara Demo](./docs/tessara.gif "Tessara Demo")
 
----
-
-## Why Tessara was created?
+## Use Case
 
 Tessara was created to solve the problem of manual consolidation of feedback from user testing sessions. The main media used for feedback submission was through Telegram, now Tessara automates that process.
 
@@ -15,8 +13,6 @@ Tessara was created to solve the problem of manual consolidation of feedback fro
 This is because the web app requests has to be executed by the Google account that host it. Setting the web app to be executable by everyone prevents requests from Telegram, see [Google Apps Script definition of 'Anyone' and 'Anyone, even anonymous'](https://developers.google.com/apps-script/guides/web).
 
 Unless you are willing to give GovTech DCUBE Google account access to your spreadsheets, the best option is to set up another bot yourself.
-
----
 
 ## Installation Steps
 
@@ -31,8 +27,6 @@ Unless you are willing to give GovTech DCUBE Google account access to your sprea
 
 You may also need to rename some hardcoded text such as `Tessara` and `@tessara_bot`.
 
----
-
 ## Commands
 
 - `/start_session https://docs.google.com/spreadsheets/d/GOOGLE-SHEETS-ID/edit#gid=0`
@@ -43,15 +37,11 @@ You may also need to rename some hardcoded text such as `Tessara` and `@tessara_
 
   End the current recording session. An additional sheet will be created with statistics such as no. of participants, no. of reports, and individual participants and reports.
 
----
-
-## Additional information
+## Additional Information
 
 - Telegram bot uses webhook instead of long polling.
 - Only one session per chat group can be active. Sessions are cached for a maximum of 6 hours using Google CacheService.
 - File links are by Telegram API, they are valid for at least 1 hour.
-
----
 
 ## Resources
 
